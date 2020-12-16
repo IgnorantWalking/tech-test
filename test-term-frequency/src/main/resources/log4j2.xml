@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout pattern="%msg%n" />
+		</Console>
+		<RollingFile name="LogToRollingFile"
+			fileName="logs/TF-IDF.log"
+			filePattern="logs/$${date:yyyy-MM}/TF-IDF-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="LogToRollingFile" />
+		</Root>
+		<Logger name="com.example.techtest.termfrequency.boot"
+			level="INFO" additivity="false">
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
+		<Logger name="com.example.techtest" level="WARN"
+			additivity="false">
+			<AppenderRef ref="LogToRollingFile" />
+		</Logger>
+	</Loggers>
+</Configuration>
